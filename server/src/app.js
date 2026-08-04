@@ -3,16 +3,20 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import restRouter from './routes/rest.routes.js'
 
-const app=express()
+
+const app = express()
 
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+}))
 
-app.use("/api/rest",restRouter)
+app.use("/api/rest", restRouter)
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.send("server is running")
 })
 
