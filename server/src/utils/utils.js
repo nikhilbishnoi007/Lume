@@ -13,7 +13,7 @@ export function getOtpHtml(otp) {
           <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
             <tr>
               <td style="background-color:#4f46e5; padding:24px 32px; text-align:center;">
-                <h1 style="color:#ffffff; margin:0; font-size:22px;">Your Company</h1>
+                <h1 style="color:#ffffff; margin:0; font-size:22px;">Lume</h1>
               </td>
             </tr>
             <tr>
