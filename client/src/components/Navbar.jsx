@@ -16,8 +16,8 @@ const Navbar = () => {
                 </div>
                <ul className='flex gap-2 md:gap-5'>
                 <li className={path==="/"?'pb-1 border-b-2 border-blue-600 text-blue-800 transition-all duration-300 ':''}><Link href="/">Home</Link></li>
-                <li className={path==="/explore"?'pb-1 border-b-2 border-blue-600 text-blue-800 transition-all duration-300 ':''}><Link href="/">Explore</Link></li>
-                <li className={path==="/create"?'pb-1 border-b-2 border-blue-600 text-blue-800 transition-all duration-300 ':''}><Link href="/">Create</Link></li>
+                <li className={path==="/explore"?'pb-1 border-b-2 border-blue-600 text-blue-800 transition-all duration-300 ':''}><Link href="/explore">Explore</Link></li>
+                <li className={path==="/create"?'pb-1 border-b-2 border-blue-600 text-blue-800 transition-all duration-300 ':''}><Link href="/create">Create</Link></li>
                </ul>
                <div className='flex gap-4'>
                 <Link href="/">Login</Link>

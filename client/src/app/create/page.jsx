@@ -3,8 +3,7 @@ import React from 'react'
 import { useState } from 'react'
 import Image from 'next/image'
 
-
-const Page = () => {
+const Page =() => {
     const [image, setimage] = useState(null)
     const [caption, setcaption] = useState("")
     const[preview,setpreview]=useState(false)
@@ -15,13 +14,13 @@ const Page = () => {
             setpreview(URL.createObjectURL(file));
          }
     }
-    const handleSubmit=async(e)=>{
+    const handleSubmit= async (e)=>{
         e.preventDefault()
         const formdata=new FormData()
         formdata.append("image",image)
         formdata.append("caption",caption)
         try {
-            const res=await fetch("http://localhost:5000/api/rest/create-post",{
+            const res=await fetch(`${process.env.BACKEND_ROUTE}/api/rest/create-post`,{
                 method:"POST",
                 body:formdata,
                 credentials: "include",

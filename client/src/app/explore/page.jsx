@@ -7,7 +7,7 @@ const Page = () => {
     const [posts, setposts] = useState([])
     useEffect(() => {
         const getPosts=async()=>{
-         const res=await fetch("http://localhost:5000/api/rest/get-post")
+         const res=await fetch(`${process.env.BACKEND_ROUTE}/api/rest/get-post`)
          const data= await res.json()
          if(data.success){
             setposts(data.data)
