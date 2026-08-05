@@ -8,5 +8,7 @@ authRouter.post("/otp-verification",authController.otpverification)
 authRouter.post("/login",authController.login)
 authRouter.get("/getuser",authController.getuser)
 authRouter.get("/refreshToken",authController.refreshToken)
+authRouter.get("/logout",authController.logout)
+authRouter.get("/logout-all",authController.logoutall)
 
 export default authRouter

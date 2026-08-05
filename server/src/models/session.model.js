@@ -20,7 +20,7 @@ const sessionSchema=new mongoose.Schema({
     },
     revoked:{
         type:Boolean,
-        defualt:false
+        default:false
     }
 },{
     timestamps:true
