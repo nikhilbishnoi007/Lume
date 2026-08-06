@@ -20,8 +20,8 @@ const Navbar = () => {
                 <li className={path==="/create"?'pb-1 border-b-2 border-blue-600 text-blue-800 transition-all duration-300 ':''}><Link href="/create">Create</Link></li>
                </ul>
                <div className='flex gap-4 items-center'>
-                <Link href="/"className='bg-zinc-200 p-2  rounded-md text-black'>Login</Link>
-                <Link href="/" className='bg-blue-600 p-2  rounded-md text-white'>SignIn</Link>
+                <Link href="/login"className='bg-zinc-200 p-2  rounded-md text-black'>Login</Link>
+                <Link href="/signin" className='bg-blue-600 p-2  rounded-md text-white'>SignIn</Link>
                </div>
             </div>
         </>
