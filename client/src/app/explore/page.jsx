@@ -1,23 +1,24 @@
+"use client"
 import React from 'react'
-// import { useState,useEffect } from 'react'
-// import Image from "next/image";
+import { useState,useEffect } from 'react'
+import Image from "next/image";
 
 const Page = () => {
-    // const [posts, setposts] = useState([])
-    // useEffect(() => {
-    //     const getPosts=async()=>{
-    //      const res=await fetch(`${process.env.BACKEND_ROUTE}/api/rest/get-post`)
-    //      const data= await res.json()
-    //      if(data.success){
-    //         setposts(data.data)
-    //      }
-    //     }
-    //  getPosts()
-    // }, [])
+    const [posts, setposts] = useState([])
+    useEffect(() => {
+        const getPosts=async()=>{
+         const res=await fetch(`${process.env.BACKEND_ROUTE}/api/rest/get-post`)
+         const data= await res.json()
+         if(data.success){
+            setposts(data.data)
+         }
+        }
+     getPosts()
+    }, [])
     
   return (
     <>
-      {/* <div className="flex flex-col gap-6 mx-auto max-w-md w-full py-8 px-4">
+      <div className="flex flex-col gap-6 mx-auto max-w-md w-full py-8 px-4">
       <h2 className="text-center text-2xl font-semibold text-gray-800">
         Feed
       </h2>
@@ -35,8 +36,8 @@ const Page = () => {
           </div>
         </div>
       ))}
-    </div> */}
-      <h1 className='text-balck'>Explore Page</h1>
+    </div>
+     
     </>
   )
 }
