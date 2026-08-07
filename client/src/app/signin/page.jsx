@@ -1,7 +1,17 @@
+"use client"
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 const Page = () => {
+  const [form, setform] = useState({
+    username:"",
+    email:"",
+    password:""
+  })
+  const handleChnage=(e)=>{
+    setform({...form,[e.target.name]:e.target.vlue})
+  }
   return (
     <>
        <div className="flex items-center justify-center min-h-screen bg-zinc-50 px-4">
@@ -18,15 +28,15 @@ const Page = () => {
         <form className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
             <label htmlFor="username" className="text-sm text-zinc-700 font-medium">Create Username</label>
-            <input id="username" type="username" placeholder="Create Username" required className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none"/>
+            <input id="username" type="username" placeholder="Create Username" required className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none" onChange={handleChnage}/>
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="email" className="text-sm text-zinc-700 font-medium">Email</label>
-            <input id="email" type="email" placeholder="you@example.com" className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none" required/>
+            <input id="email" type="email" placeholder="you@example.com" className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none" required onChange={handleChnage}/>
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="password" className="text-sm text-zinc-700 font-medium">Password</label>
-            <input id="password" type="password"  placeholder="••••••••" className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none focus:border-blue-600 transition-colors" required/>
+            <input id="password" type="password"  placeholder="••••••••" className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none focus:border-blue-600 transition-colors" required onChange={handleChnage}/>
           </div>
           <button  type="submit" className="bg-blue-700 text-white px-6 py-3 rounded-md hover:bg-blue-800 active:bg-blue-900 active:scale-95 transition-all duration-150 font-medium mt-2">
             Sign Up
