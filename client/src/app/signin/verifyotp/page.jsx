@@ -1,13 +1,32 @@
 "use client"
 import React, { useState } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
+  const router=useRouter()
   const [otp, setOtp] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
-    console.log('Entered OTP:', otp)
+    try{
+   const res=await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/otp-verification`,{
+    method:'POST',
+    headers:{"Content-type":"application/json"},
+    body:JSON.stringify({otp}),
+    credentials: "include",
+   })
+   const data=await res.json()
+   if(data.success){
+     alert(data.message)
+     router.push("/login")
+   }
+   else{
+    alert(data.message)
+   }
+  }catch(error){
+    alert(error.message)
+  }
   }
 
   return (
@@ -25,7 +44,7 @@ const Page = () => {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
             <label htmlFor="otp" className="text-sm text-zinc-700 font-medium">Enter OTP</label>
-            <input  id="otp" type="text" inputMode="numeric"placeholder="Enter your OTP" value={otp}onChange={(e) => setOtp(e.target.value)}className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none focus:border-blue-600 transition-colors"/>
+            <input name='otp' id="otp" type="text" inputMode="numeric"placeholder="Enter your OTP" value={otp}onChange={(e) => setOtp(e.target.value)}className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none focus:border-blue-600 transition-colors" required/>
           </div>
 
           <button  type="submit" className="bg-blue-700 text-white px-6 py-3 rounded-md hover:bg-blue-800 active:bg-blue-900 active:scale-95 transition-all duration-150 font-medium" >

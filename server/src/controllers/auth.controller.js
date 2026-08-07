@@ -20,7 +20,7 @@ export async function register(req, res) {
     if (isAlreadyRegister) {
         return res.status(409).json({
             message: "user already register",
-            succcess: false
+            success: false
         })
     }
     const salt = await bcrypt.genSalt(10)
@@ -41,7 +41,7 @@ export async function register(req, res) {
     sendEmail(email, "OTP Verification", `Your Otp Code is ${otp}`, html)
     res.status(201).json({
         message: "User registerd Successfully",
-        succcess: true,
+        success: true,
         data: user
     })
 
@@ -76,13 +76,13 @@ export async function login(req, res) {
     if (!user) {
         return res.status(401).json({
             message: "email or password is wrong",
-            succcess: false
+            success: false
         })
     }
     if (!user.verified) {
         return res.status(401).json({
             message: "email not verified",
-            succcess: false
+            success: false
         })
     }
     const result =await  bcrypt.compare(password, user.password)
@@ -125,7 +125,7 @@ export async function getuser(req, res) {
     if (!decoded) {
         return res.status(401).json({
             message: "invalid token",
-            succcess: false
+            success: false
         })
     }
     const user = await userModel.findById(decoded.id)
@@ -197,7 +197,7 @@ export async function logout(req, res) {
     res.clearCookie("refreshtoken")
     res.status(200).json({
         message:"logout sucessfull",
-        succcess:true
+        success:true
     })
 }
 export async function logoutall(req, res) {
