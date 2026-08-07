@@ -17,19 +17,17 @@ const Page = () => {
         </div>
         <form className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
+            <label htmlFor="username" className="text-sm text-zinc-700 font-medium">Create Username</label>
+            <input id="username" type="username" placeholder="Create Username" required className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none"/>
+          </div>
+          <div className="flex flex-col gap-1">
             <label htmlFor="email" className="text-sm text-zinc-700 font-medium">Email</label>
-            <input id="email" type="email" placeholder="you@example.com" className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none"/>
+            <input id="email" type="email" placeholder="you@example.com" className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none" required/>
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="password" className="text-sm text-zinc-700 font-medium">Password</label>
-            <input id="password" type="password"  placeholder="••••••••" className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none focus:border-blue-600 transition-colors" />
+            <input id="password" type="password"  placeholder="••••••••" className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none focus:border-blue-600 transition-colors" required/>
           </div>
-
-          <div className="flex flex-col gap-1">
-            <label htmlFor="confirmPassword" className="text-sm text-zinc-700 font-medium">Confirm Password</label>
-            <input   id="confirmPassword"  type="password"   placeholder="••••••••"  className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none focus:border-blue-600 transition-colors"/>
-          </div>
-
           <button  type="submit" className="bg-blue-700 text-white px-6 py-3 rounded-md hover:bg-blue-800 active:bg-blue-900 active:scale-95 transition-all duration-150 font-medium mt-2">
             Sign Up
           </button>

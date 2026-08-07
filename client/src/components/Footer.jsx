@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between gap-8">
         <div className="flex flex-col gap-2 max-w-xs">
           <div className="flex items-center gap-2">
-            <Image   src="/navicon.png" alt="Lume icon" width={32} height={32} className="w-auto h-auto"/>
+            <Image   src="/navicon.png" alt="Lume icon" priority width={32} height={32} className="w-auto h-auto"/>
             <span className="text-xl font-bold">Lume</span>
           </div>
           <p className="text-sm text-purple-500">
