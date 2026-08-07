@@ -38,32 +38,37 @@ const Page =() => {
     }
   return (
     <>
-    <div className='flex flex-col gap-6 mx-auto max-w-md w-full my-auto px-4'>
-  <h2 className='text-center text-2xl font-semibold text-gray-800'>
-    Create Post
-  </h2>
-
-  <form className='flex flex-col gap-4 bg-white p-6 rounded-xl shadow-md border border-gray-200' onSubmit={handleSubmit}>
-    
-    {preview ? (
-      <div className='relative w-full h-64 rounded-lg overflow-hidden border border-gray-200'>
-        <Image src={preview} alt='preview' fill className='object-cover' />
+     <div className="flex items-center justify-center min-h-screen bg-zinc-50 px-4 py-8">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md border border-gray-200 p-6 md:p-8">
+        <div className="flex flex-col items-center gap-2 mb-6">
+          <Image src="/navicon.png" alt="Lume icon" width={40} height={40}  priority  className="w-auto h-auto"/>
+          <h1 className="text-2xl font-bold">Share a Moment</h1>
+          <p className="text-sm text-purple-500 text-center">
+            Upload a photo and let the world see it
+          </p>
+        </div>
+        <form className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <label className="text-sm text-zinc-700 font-medium">Photo</label>
+            <label  htmlFor="image" className="relative flex items-center justify-center h-56 rounded-md border-2 border-dashed border-gray-300 bg-zinc-50 cursor-pointer overflow-hidden ">
+              {preview ? (
+                <Image  src={preview}  alt="preview"  fill className="object-cover"/>
+              ) : (
+                <span className="text-sm text-zinc-400">Click to upload an image</span>
+              )}
+            </label>
+            <input  id="image" type="file"  accept="image/*" onChange={handleImageChange}  className="hidden" required/>
+          </div>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="caption" className="text-sm text-zinc-700 font-medium">Caption</label>
+            <textarea  id="caption" rows={3} placeholder="Write a caption for your moment..." required className="px-4 py-2 rounded-md border border-gray-200 text-sm outline-none resize-none" onChange={(e)=>{setcaption(e.target.value)}}/>
+          </div>
+          <button type="submit"className="bg-blue-700 text-white px-6 py-3 rounded-md hover:bg-blue-800 active:bg-blue-900 active:scale-95 transition-all duration-150 font-medium mt-2" >
+            Post Moment
+          </button>
+        </form>
       </div>
-    ) : (
-      <label htmlFor='image-upload' className='flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-gray-400 transition-colors text-gray-500'>
-        <span className='text-sm'>Click to upload an image</span>
-      </label>
-    )}
-
-    <input id='image-upload' type='file'  name='image'  accept='image/*'  onChange={handleImageChange} className='hidden' required />
-
-   
-    <textarea name='caption' id='caption' placeholder='Write a caption...' onChange={(e) => setcaption(e.target.value)} required rows={3} className='resize-none border border-gray-300 text-black rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500'/>
-    <input type='submit' value="Post" className='bg-blue-600 text-white font-medium py-2.5 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50'/>
-      
-  
-  </form>
-</div>
+    </div>
     </>
   )
 }
