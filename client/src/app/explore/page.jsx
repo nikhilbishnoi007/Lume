@@ -3,12 +3,14 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import Image from "next/image";
 import { Heart, MessageCircle, Send } from 'lucide-react'
+import { useAuth } from '../context/authcontext.jsx';
 
 const Page = () => {
   const [posts, setposts] = useState([])
+  const {user}=useAuth()
   useEffect(() => {
     const getPosts = async () => {
-      const res = await fetch(`${process.env.BACKEND_ROUTE}/api/rest/get-post`)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rest/get-post`)
       const data = await res.json()
       if (data.success) {
         setposts(data.data)
@@ -29,12 +31,12 @@ const Page = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {posts.map((post) => (
-              <div key={post.id} className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden flex flex-col">
+              <div key={post._id} className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden flex flex-col">
                 <div className="flex items-center gap-2 p-3">
                   <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 bg-zinc-200">
-                    <Image src={post.avatar} alt={post.user} fill className="object-cover" />
+                    <Image src={post.image} alt={post.user} fill className="object-cover" />
                   </div>
-                  <span className="text-sm font-medium text-zinc-700">{post.user}</span>
+                  <span className="text-sm font-medium text-zinc-700">{post.user?.username}</span>
                 </div>
                 <div className="relative w-full h-64 bg-zinc-100">
                   <Image src={post.image} alt={post.caption} fill className="object-cover" />

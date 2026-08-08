@@ -49,10 +49,11 @@ export async function createpost(req, res) {
     }
 }
 export async function getpost(req, res) {
-    const post = await postModel.find()
+    const post = await postModel.find().populate("user","username")
     res.status(200).json({
         message: "Post Send",
         success: true,
         data: post
     })
 }
+

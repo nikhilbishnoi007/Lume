@@ -167,12 +167,12 @@ export async function refreshToken(req, res) {
     const newrefreshTokenHash = crypto.createHash("sha256").update(newrefreshToken).digest("hex")
     session.refreshTokenHash = newrefreshTokenHash
     await session.save()
-    // res.cookie("refreshtoken", newrefreshToken, {
-    //     httpOnly: true,
-    //     secure: false,
-    //     sameSite: "lax",
-    //     maxAge: 7 * 24 * 60 * 60 * 1000
-    // })
+    res.cookie("refreshtoken", newrefreshToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000
+    })
     res.status(200).json({
         message: "new refreshtoken and accessToken genrated",
         success: true,
@@ -233,4 +233,28 @@ export async function logoutall(req, res) {
         success: true
     })
 
+}
+
+export async function getuserpost(req, res) {
+    try {
+        const authHeader = req.headers.authorization
+        if (!authHeader) {
+            return res.status(401).json({ message: "user not loggedin", success: false })
+        }
+        const token = authHeader.split(" ")[1]
+        const decoded = jwt.verify(token, config.JWT_SECRET)
+
+        const user = await userModel.findById(decoded.id).populate("post", "image caption")
+        if (!user) {
+            return res.status(404).json({ message: "user not found", success: false })
+        }
+
+        res.status(200).json({
+            message: "User post send",
+            success: true,
+            data: user
+        })
+    } catch (error) {
+        res.status(401).json({ message: "invalid or expired token", success: false })
+    }
 }

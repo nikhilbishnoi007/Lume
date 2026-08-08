@@ -8,16 +8,11 @@ import Link from 'next/link.js'
 
 const Page =() => {
     const router=useRouter()
-    const {user,loading}=useAuth()
+    const {user,loading,accesstoken}=useAuth()
     const [image, setimage] = useState(null)
     const [caption, setcaption] = useState("")
     const[preview,setpreview]=useState(false)
-    //   useEffect(() => {
-    //     if (!loading && !user) {
-    //       router.push("/")
-    //     }
-    // }, [ user, router,loading])
-
+    console.log(accesstoken)
     const handleImageChange=(e)=>{
          const file=e.target.files[0]
          if(file){
@@ -31,8 +26,9 @@ const Page =() => {
         formdata.append("image",image)
         formdata.append("caption",caption)
         try {
-            const res=await fetch(`${process.env.BACKEND_ROUTE}/api/rest/create-post`,{
+            const res=await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rest/create-post`,{
                 method:"POST",
+                headers:{Authorization: "Bearer " + accesstoken},
                 body:formdata,
                 credentials: "include",
             })
@@ -41,7 +37,7 @@ const Page =() => {
                 alert(data.message)
             }
             else{
-              alert("somthig went wrong")
+              alert(data.message)
             }
         } catch (error) {
             alert(error.message)
@@ -68,7 +64,7 @@ const Page =() => {
             Upload a photo and let the world see it
           </p>
         </div>
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1">
             <label className="text-sm text-zinc-700 font-medium">Photo</label>
             <label  htmlFor="image" className="relative flex items-center justify-center h-56 rounded-md border-2 border-dashed border-gray-300 bg-zinc-50 cursor-pointer overflow-hidden ">
