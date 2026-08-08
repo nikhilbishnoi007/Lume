@@ -1,12 +1,23 @@
 "use client"
 import React from 'react'
-import { useState } from 'react'
+import { useState ,useEffect} from 'react'
 import Image from 'next/image'
+import { useAuth } from '../context/authcontext.jsx'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link.js'
 
 const Page =() => {
+    const router=useRouter()
+    const {user,loading}=useAuth()
     const [image, setimage] = useState(null)
     const [caption, setcaption] = useState("")
     const[preview,setpreview]=useState(false)
+    //   useEffect(() => {
+    //     if (!loading && !user) {
+    //       router.push("/")
+    //     }
+    // }, [ user, router,loading])
+
     const handleImageChange=(e)=>{
          const file=e.target.files[0]
          if(file){
@@ -36,6 +47,16 @@ const Page =() => {
             alert(error.message)
         }
     }
+   
+    if(!user) return(
+      <>
+       <p className="text-center mt-10">Login/SignIn to create post</p>
+       <div className='flex gap-4 m-5  md:max-w-xl md:mx-auto'>
+         <Link href="/login" className='bg-zinc-200 p-2 rounded-md text-black flex-1 text-center'>Login</Link>
+          <Link href="/signin" className='bg-blue-600 p-2 rounded-md text-white flex-1 text-center'>SignIn</Link>
+        </div>
+       </>
+      )
   return (
     <>
      <div className="flex items-center justify-center min-h-screen bg-zinc-50 px-4 py-8">

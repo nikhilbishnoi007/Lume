@@ -85,7 +85,7 @@ export async function login(req, res) {
             success: false
         })
     }
-    const result =await  bcrypt.compare(password, user.password)
+    const result = await bcrypt.compare(password, user.password)
     if (!result) {
         return res.status(401).json({
             message: "email or password is wrong"
@@ -143,7 +143,7 @@ export async function refreshToken(req, res) {
             success: false
         })
     }
-    const decoded = jwt.verify(refreshtoken, config.JWT_SECRET)
+    const decoded = jwt.verify(refreshToken, config.JWT_SECRET)
     const refreshTokenHash = crypto.createHash("sha256").update(refreshToken).digest("hex")
     const session = await sessionModel.findOne({
         refreshTokenHash,
@@ -155,20 +155,28 @@ export async function refreshToken(req, res) {
             success: false
         })
     }
+    const user = await userModel.findById(decoded.id)
+    if (!user) {
+        return res.status(404).json({
+            message: "user not found",
+            success: false
+        })
+    }
     const accesstoken = jwt.sign({ email: decoded.email, id: decoded.id }, config.JWT_SECRET, { expiresIn: "15m" })
-    const newrefreshToken = jwt.sign({ email: docoded.email, id: decoded.id }, config.JWT_SECRET, { expiresIn: "7d" })
+    const newrefreshToken = jwt.sign({ email: decoded.email, id: decoded.id }, config.JWT_SECRET, { expiresIn: "7d" })
     const newrefreshTokenHash = crypto.createHash("sha256").update(newrefreshToken).digest("hex")
     session.refreshTokenHash = newrefreshTokenHash
     await session.save()
-    res.cookie("refreshtoken", newrefreshToken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax",
-        maxAge: 7 * 24 * 60 * 60 * 1000
-    })
+    // res.cookie("refreshtoken", newrefreshToken, {
+    //     httpOnly: true,
+    //     secure: false,
+    //     sameSite: "lax",
+    //     maxAge: 7 * 24 * 60 * 60 * 1000
+    // })
     res.status(200).json({
         message: "new refreshtoken and accessToken genrated",
         success: true,
+        data: user,
         accesstoken
     })
 }
@@ -178,7 +186,7 @@ export async function logout(req, res) {
     if (!refreshToken) {
         return res.status(401).json({
             message: "User Not loogedin",
-            success:false
+            success: false
         })
     }
     const refreshTokenHash = crypto.createHash("sha256").update(refreshToken).digest("hex")
@@ -186,18 +194,22 @@ export async function logout(req, res) {
         refreshTokenHash,
         revoked: false
     })
-    if(!session){
+    if (!session) {
         return res.status(401).json({
-            message:"invalid Token",
-            success:false
+            message: "invalid Token",
+            success: false
         })
     }
-    session.revoked=true
+    session.revoked = true
     await session.save()
-    res.clearCookie("refreshtoken")
+    res.clearCookie("refreshtoken", {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax"
+    })
     res.status(200).json({
-        message:"logout sucessfull",
-        success:true
+        message: "logout sucessfull",
+        success: true
     })
 }
 export async function logoutall(req, res) {

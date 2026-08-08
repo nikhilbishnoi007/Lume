@@ -1,7 +1,11 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Images, UsersRound, Zap, UserShield ,StarPlus} from 'lucide-react'
+import { useAuth } from "./context/authcontext.jsx";
+
 export default function Home() {
+  const {user}=useAuth();
   const cards = [
     {
       icon: <Images />,
@@ -34,7 +38,7 @@ export default function Home() {
             <h2 className="text-purple-600 text-sm md:text-base">Share moments, Connect World</h2>
           </div>
           <div className="flex flex-col gap-1 m-3">
-            <h1 className="text-3xl md:text-4xl font-bold">Share Life</h1>
+            <h1 className="text-3xl md:text-4xl font-bold">Share Life </h1>
             <h1 className="text-3xl md:text-4xl font-bold">
               <span className="text-purple-600">Inspire</span> Other
             </h1>
