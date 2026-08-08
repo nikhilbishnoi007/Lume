@@ -8,7 +8,7 @@ import Link from 'next/link.js'
 
 const Page =() => {
     const router=useRouter()
-    const {user,loading,accesstoken}=useAuth()
+    const {users,loading,accesstoken}=useAuth()
     const [image, setimage] = useState(null)
     const [caption, setcaption] = useState("")
     const[preview,setpreview]=useState(false)
@@ -44,7 +44,7 @@ const Page =() => {
         }
     }
    
-    if(!user) return(
+    if(!users) return(
       <>
        <p className="text-center mt-10">Login/SignIn to create post</p>
        <div className='flex gap-4 m-5  md:max-w-xl md:mx-auto'>

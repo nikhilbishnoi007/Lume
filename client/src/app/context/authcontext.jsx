@@ -5,7 +5,7 @@ const AuthContext=createContext()
 
 export function AuthProvider({children}){
     const [accesstoken, setAccesstoken] = useState(null)
-    const [user,setuser]=useState([])
+    const [users,setusers]=useState([])
     const [loading, setLoading] = useState(true) 
     useEffect(() => {
       const newrefreshtoken=async()=>{
@@ -37,7 +37,7 @@ export function AuthProvider({children}){
       });
       const resdata = await response.json();
       if(resdata.success){
-        setuser(resdata.data)
+        setusers(resdata.data)
       }
     } catch (error) {
       console.log(error.message)
@@ -51,7 +51,7 @@ export function AuthProvider({children}){
   }, [getuser]);
     
     return(
-        <AuthContext.Provider value={{ accesstoken, setAccesstoken, user, setuser,getuser,loading }}>
+        <AuthContext.Provider value={{ accesstoken, setAccesstoken, users, setusers,getuser,loading }}>
             {children}
         </AuthContext.Provider>
     )

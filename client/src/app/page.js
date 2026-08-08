@@ -6,7 +6,7 @@ import { useAuth } from "./context/authcontext.jsx";
 import { CgProfile } from "react-icons/cg";
 
 export default function Home() {
-  const {user}=useAuth();
+  const {users}=useAuth();
   const cards = [
     {
       icon: <Images />,
@@ -83,7 +83,7 @@ export default function Home() {
         <p className="text-sm md:text-base text-zinc-600">Join Lume today and be part of our community</p>
     </div>
     <div className='flex gap-4 items-center w-full md:w-auto'>
-       {user ? (
+       {users ? (
            <Link href="/profile" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150 flex gap-1 items-center' ><CgProfile />Profile</Link>
             ) : (
             <>

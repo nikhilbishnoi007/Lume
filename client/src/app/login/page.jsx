@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 
 const Page = () => {
   const router=useRouter()
-  const { setAccesstoken, setuser}=useAuth()
+  const { setAccesstoken, setusers}=useAuth()
 const [form, setform] = useState({
   email:"",
   password:""
@@ -27,7 +27,7 @@ const handleSubmit=async(e)=>{
     })
     const data=await res.json()
     if(data.success){
-      setuser(data.data)
+      setusers(data.data)
       setAccesstoken(data.accesstoken)
       router.push("/")
     }

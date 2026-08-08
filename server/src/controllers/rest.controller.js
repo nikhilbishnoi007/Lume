@@ -38,7 +38,8 @@ export async function createpost(req, res) {
             image: result.url,
             caption: req.body.caption
         })
-
+        user.post.push(post._id)
+        await user.save()
         res.status(201).json({
             message: "post created successfully",
             success: true,
@@ -49,7 +50,7 @@ export async function createpost(req, res) {
     }
 }
 export async function getpost(req, res) {
-    const post = await postModel.find().populate("user","username")
+    const post = await postModel.find().populate("user", "username")
     res.status(200).json({
         message: "Post Send",
         success: true,

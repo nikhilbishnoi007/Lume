@@ -128,7 +128,7 @@ export async function getuser(req, res) {
             success: false
         })
     }
-    const user = await userModel.findById(decoded.id)
+    const user = await userModel.findById(decoded.id).populate("post", "image caption")
     res.status(200).json({
         message: "User found",
         success: true,
@@ -144,7 +144,9 @@ export async function refreshToken(req, res) {
         })
     }
     const decoded = jwt.verify(refreshToken, config.JWT_SECRET)
+    console.log(refreshToken)
     const refreshTokenHash = crypto.createHash("sha256").update(refreshToken).digest("hex")
+    console.log(refreshTokenHash)
     const session = await sessionModel.findOne({
         refreshTokenHash,
         revoked: false
