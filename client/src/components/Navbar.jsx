@@ -42,7 +42,7 @@ const Navbar = () => {
 
                 <div className='hidden md:flex gap-4 items-center'>
                     {user ? (
-                        <button className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150' onClick={handleClick}><CgProfile /></button>
+                       <Link href="/profile" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150 flex gap-1 items-center' ><CgProfile />Profile</Link>
                         
                     ) : (
                         <>
@@ -72,7 +72,7 @@ const Navbar = () => {
                     </ul>
                     <div className='flex gap-4'>
                         {user ? (
-                            <button className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150' onClick={handleClick}>LogOut</button>
+                           <Link href="/profile" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150 flex gap-1 items-center' ><CgProfile />Profile</Link>
                         ) : (
                             <>
                                 <Link href="/login" className='bg-zinc-200 p-2 rounded-md text-black flex-1 text-center'>Login</Link>

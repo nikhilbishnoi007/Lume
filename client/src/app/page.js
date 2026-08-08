@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Images, UsersRound, Zap, UserShield ,StarPlus} from 'lucide-react'
 import { useAuth } from "./context/authcontext.jsx";
+import { CgProfile } from "react-icons/cg";
 
 export default function Home() {
   const {user}=useAuth();
@@ -82,8 +83,14 @@ export default function Home() {
         <p className="text-sm md:text-base text-zinc-600">Join Lume today and be part of our community</p>
     </div>
     <div className='flex gap-4 items-center w-full md:w-auto'>
-        <Link href="/login" className='flex-1 md:flex-none text-center bg-white px-4 py-2 rounded-md shadow-md border border-gray-200 text-black active:scale-95 transition-all duration-150'>Login</Link>
-        <Link  href="/signin"  className='flex-1 md:flex-none text-center bg-blue-600 px-4 py-2 rounded-md text-white active:scale-95 transition-all duration-150'>SignIn </Link>
+       {user ? (
+           <Link href="/profile" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150 flex gap-1 items-center' ><CgProfile />Profile</Link>
+            ) : (
+            <>
+              <Link href="/login" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150'>Login</Link>
+              <Link href="/signin" className='bg-blue-600 p-2 rounded-md text-white  active:scale-95 transition-all duration-150'>SignIn</Link>
+            </>
+          )}
     </div>
 </div>
     </>
