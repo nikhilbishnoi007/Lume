@@ -5,9 +5,11 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useAuth } from '../context/authcontext.jsx'
 import { useRouter } from 'next/navigation'
+import { useUI } from '../context/Uicontext.js'
 
 const Page = () => {
   const router=useRouter()
+  const {showToast}=useUI()
   const { setAccesstoken, setusers}=useAuth()
 const [form, setform] = useState({
   email:"",
@@ -27,9 +29,10 @@ const handleSubmit=async(e)=>{
     })
     const data=await res.json()
     if(data.success){
+      showToast("login successfull")
       setusers(data.data)
       setAccesstoken(data.accesstoken)
-      router.push("/")
+      router.push("/profile")
     }
   } catch (error) {
     

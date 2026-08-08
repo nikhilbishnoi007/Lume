@@ -4,11 +4,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-
+import { useUI } from '../context/Uicontext'
 
 
 const Page = () => {
   const router=useRouter()
+  const {showToast}=useUI()
   const [form, setform] = useState({
     username: "",
     email: "",
@@ -28,14 +29,14 @@ const Page = () => {
     })
     const data=await res.json()
     if(data.success){
-      alert(data.message)
+      showToast(data.message)
       router.push("/signin/verifyotp")
     }
     else{
-      console.log("Somthing Went to wrong")
+      showToast(data.message)
     }
   }catch(error){
-    console.log(error.message)
+    showToast(error.message)
   }
 
   }

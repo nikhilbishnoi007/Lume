@@ -5,16 +5,18 @@ import { useAuth } from "../context/authcontext.jsx"
 import Image from "next/image"
 import { IoIosLogOut } from "react-icons/io";
 import { MoreVertical, Pencil, Trash2 } from "lucide-react"
+import { useUI } from "../context/Uicontext.js"
 
 const Page = () => {
     const { users, accesstoken, setusers, setAccesstoken } = useAuth()
     const router = useRouter()
+    const { showToast ,showConfirm} = useUI();
     const [open, setopen] = useState(false)
 
 
 
     const handleClick = async () => {
-        const result = await confirm("do you want to logout")
+        const result = await showConfirm("do you want to logout")
         if (!result) {
             return
         }
@@ -29,10 +31,10 @@ const Page = () => {
                 setAccesstoken(null)
                 router.push("/login")
             } else {
-                console.log(data.message)
+                showToast(data.message)
             }
         } catch (error) {
-            console.log(error.message)
+           showToast(error.message)
         }
     }
     const handelState = () => {

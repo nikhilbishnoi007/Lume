@@ -2,9 +2,11 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useUI } from '@/app/context/Uicontext'
 
 const Page = () => {
   const router=useRouter()
+  const {showToast}=useUI()
   const [otp, setOtp] = useState('')
 
   const handleSubmit = async(e) => {
@@ -18,14 +20,14 @@ const Page = () => {
    })
    const data=await res.json()
    if(data.success){
-     alert(data.message)
+     showToast(data.message)
      router.push("/login")
    }
    else{
-    alert(data.message)
+    showToast(data.message)
    }
   }catch(error){
-    alert(error.message)
+    showToast(error.message)
   }
   }
 

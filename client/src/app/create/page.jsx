@@ -5,9 +5,11 @@ import Image from 'next/image'
 import { useAuth } from '../context/authcontext.jsx'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link.js'
+import { useUI } from '../context/Uicontext.js'
 
 const Page =() => {
     const router=useRouter()
+    const {showToast}=useUI()
     const {users,loading,accesstoken}=useAuth()
     const [image, setimage] = useState(null)
     const [caption, setcaption] = useState("")
@@ -34,13 +36,13 @@ const Page =() => {
             })
             const data=await res.json()
             if(data.success){
-                alert(data.message)
+                showToast(data.message)
             }
             else{
-              alert(data.message)
+              showToast(data.message)
             }
         } catch (error) {
-            alert(error.message)
+            showToast(error.message)
         }
     }
    
