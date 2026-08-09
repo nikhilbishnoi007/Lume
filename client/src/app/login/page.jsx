@@ -4,13 +4,13 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useAuth } from '../context/authcontext.jsx'
-import { useRouter } from 'next/navigation'
+import { notFound, useRouter } from 'next/navigation'
 import { useUI } from '../context/Uicontext.js'
 
 const Page = () => {
   const router=useRouter()
   const {showToast}=useUI()
-  const { setAccesstoken, setusers}=useAuth()
+  const { accesstoken,users,setAccesstoken, setusers}=useAuth()
 const [form, setform] = useState({
   email:"",
   password:""
@@ -38,7 +38,9 @@ const handleSubmit=async(e)=>{
     
   }
 }
-
+if(users ||accesstoken){
+  return notFound()
+}
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-zinc-50 px-4">
