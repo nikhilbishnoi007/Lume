@@ -2,13 +2,15 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { notFound, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useUI } from '../context/Uicontext'
+import { useAuth } from '../context/authcontext'
 
 
 const Page = () => {
   const router=useRouter()
+  const {users}=useAuth()
   const {showToast}=useUI()
   const [form, setform] = useState({
     username: "",
@@ -39,6 +41,9 @@ const Page = () => {
     showToast(error.message)
   }
 
+  }
+  if(users){
+    return notFound()
   }
   return (
     <>

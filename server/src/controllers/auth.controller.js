@@ -144,9 +144,9 @@ export async function refreshToken(req, res) {
         })
     }
     const decoded = jwt.verify(refreshToken, config.JWT_SECRET)
-    console.log(refreshToken)
+
     const refreshTokenHash = crypto.createHash("sha256").update(refreshToken).digest("hex")
-    console.log(refreshTokenHash)
+    
     const session = await sessionModel.findOne({
         refreshTokenHash,
         revoked: false

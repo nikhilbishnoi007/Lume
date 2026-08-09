@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { notFound, useRouter } from "next/navigation"
 import { useAuth } from "../context/authcontext.jsx"
 import Image from "next/image"
 import { IoIosLogOut } from "react-icons/io";
@@ -39,6 +39,9 @@ const Page = () => {
     }
     const handelState = () => {
         setopen(!open)
+    }
+    if(users){
+        return notFound()
     }
 
     return (
