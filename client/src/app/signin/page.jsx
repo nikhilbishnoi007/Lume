@@ -10,7 +10,7 @@ import { useAuth } from '../context/authcontext'
 
 const Page = () => {
   const router=useRouter()
-  const {users}=useAuth()
+  const {users,isloggedin}=useAuth()
   const {showToast}=useUI()
   const [form, setform] = useState({
     username: "",
@@ -42,7 +42,7 @@ const Page = () => {
   }
 
   }
-  if(users){
+  if(isloggedin){
     return notFound()
   }
   return (

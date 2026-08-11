@@ -10,7 +10,7 @@ import { useUI } from '../context/Uicontext.js'
 const Page = () => {
   const router=useRouter()
   const {showToast}=useUI()
-  const { accesstoken,users,setAccesstoken, setusers}=useAuth()
+  const { accesstoken,users,setAccesstoken, setusers,isloggedin,setisloggedin}=useAuth()
 const [form, setform] = useState({
   email:"",
   password:""
@@ -32,11 +32,19 @@ const handleSubmit=async(e)=>{
       showToast("login successfull")
       setusers(data.data)
       setAccesstoken(data.accesstoken)
+      setisloggedin(true)
       router.push("/profile")
     }
   } catch (error) {
-    
+    showToast(error.message)
   }
+}
+if(isloggedin){
+  return (
+    <>
+  <div>Your are alredy login</div>
+  <Link href="/profile">Back To Your Profile</Link>
+  </>)
 }
 
   return (

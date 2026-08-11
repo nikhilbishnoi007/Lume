@@ -1,11 +1,13 @@
 "use client"
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { notFound, useRouter } from 'next/navigation'
 import { useUI } from '@/app/context/Uicontext'
+import { useAuth } from '@/app/context/authcontext'
 
 const Page = () => {
   const router=useRouter()
+  const {isloggedin}=useAuth()
   const {showToast}=useUI()
   const [otp, setOtp] = useState('')
 
@@ -30,7 +32,9 @@ const Page = () => {
     showToast(error.message)
   }
   }
-
+ if(isloggedin){
+  return notFound()
+ }
   return (
     <div className="flex items-center justify-center min-h-screen bg-zinc-50 px-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md border border-gray-200 p-6 md:p-8">

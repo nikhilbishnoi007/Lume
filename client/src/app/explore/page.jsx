@@ -2,7 +2,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Image from "next/image";
-import { Heart, MessageCircle, Send } from 'lucide-react'
 import { useAuth } from '../context/authcontext.jsx';
 
 const Page = () => {
@@ -42,12 +41,6 @@ const Page = () => {
                   <Image src={post.image} alt={post.caption} fill className="object-cover" />
                 </div>
                 <div className="p-3 flex flex-col gap-2">
-                  <div className="flex items-center gap-4">
-                    <button className="flex items-center gap-1 text-zinc-600 hover:text-red-500 active:scale-90 transition-all duration-150">
-                      <Heart size={20} />
-                      <span className="text-sm">{post.likes}</span>
-                    </button>
-                  </div>
                   <p className="text-sm text-purple-500">{post.caption}</p>
                 </div>
               </div>

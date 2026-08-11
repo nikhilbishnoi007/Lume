@@ -6,7 +6,7 @@ import { useAuth } from "./context/authcontext.jsx";
 import { CgProfile } from "react-icons/cg";
 
 export default function Home() {
-  const { users } = useAuth();
+  const { users ,isloggedin} = useAuth();
   const cards = [
     {
       icon: <Images />,
@@ -48,8 +48,7 @@ export default function Home() {
             </p>
           </div>
           <div className="m-5 flex flex-wrap gap-2">
-            {users ? (
-
+            {!isloggedin ? (
               <Link href="/login" className="flex items-center gap-2 whitespace-nowrap text-sm md:text-base bg-blue-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-md hover:bg-blue-800 active:bg-blue-900 active:scale-95 transition-all duration-150">
                 <span>Get Started</span> <ArrowRight size={18} />
               </Link>
@@ -84,7 +83,7 @@ export default function Home() {
         })}
       </div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 m-5 bg-white rounded-lg shadow-md border border-gray-200">
-        {users ? (
+        {isloggedin ? (
           <div className="flex flex-col gap-2 md:gap-4">
             <div ><StarPlus /> </div>
             <h1 className="text-xs md:text-xl font-bold">  Welcome Back! {users.username} Ready To Share Something New?</h1>
@@ -98,12 +97,12 @@ export default function Home() {
           </div>
         )}
         <div className='flex gap-4 items-center w-full md:w-auto'>
-          {users ? (
+          {isloggedin ? (
             <Link href="/profile" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150 flex gap-1 items-center' ><CgProfile />Profile</Link>
           ) : (
             <>
               <Link href="/login" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150'>Login</Link>
-              <Link href="/signin" className='bg-blue-600 p-2 rounded-md text-white  active:scale-95 transition-all duration-150'>SignIn</Link>
+              <Link href="/signin" className='bg-blue-600 p-2 rounded-md text-white  active:scale-95 transition-all duration-150'>SignUp</Link>
             </>
           )}
         </div>

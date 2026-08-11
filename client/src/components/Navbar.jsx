@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 
 const Navbar = () => {
     const router=useRouter()
-    const { users } = useAuth()
+    const { users,isloggedin } = useAuth()
     const path = usePathname()
     const [isOpen, setIsOpen] = useState(false)
     const linkClass = (href) => {
@@ -37,13 +37,13 @@ const Navbar = () => {
 
 
                 <div className='hidden md:flex gap-4 items-center'>
-                    {users ? (
+                    {isloggedin ? (
                          <Link href="/profile" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150 flex items-center gap-1'>Profile <CgProfile/></Link>
                         
                     ) : (
                         <>
                             <Link href="/login" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150'>Login</Link>
-                            <Link href="/signin" className='bg-blue-600 p-2 rounded-md text-white  active:scale-95 transition-all duration-150'>SignIn</Link>
+                            <Link href="/signin" className='bg-blue-600 p-2 rounded-md text-white  active:scale-95 transition-all duration-150'>SignUp</Link>
                         </>
                     )}
                 </div>
@@ -67,12 +67,12 @@ const Navbar = () => {
                         <li className={linkClass("/create")} onClick={() => setIsOpen(false)}><Link href="/create">Create</Link></li>
                     </ul>
                     <div className='flex gap-4'>
-                        {users ? (
+                        {isloggedin ? (
                            <Link href="/profile" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150 flex gap-1 items-center' ><CgProfile />Profile</Link>
                         ) : (
                             <>
                                 <Link href="/login" className='bg-zinc-200 p-2 rounded-md text-black flex-1 text-center active:scale-95 transition-all duration-150'>Login</Link>
-                                <Link href="/signin" className='bg-blue-600 p-2 rounded-md text-white flex-1 text-center active:scale-95 transition-all duration-150'>SignIn</Link>
+                                <Link href="/signin" className='bg-blue-600 p-2 rounded-md text-white flex-1 text-center active:scale-95 transition-all duration-150'>SignUp</Link>
                             </>
                         )}
                     </div>

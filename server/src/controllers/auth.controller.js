@@ -207,6 +207,28 @@ export async function getuserpost(req, res) {
     }
 }
 
+export async function checkauth(req,res) {
+    const token=req.cookies.refreshtoken
+    if(!token){
+        res.status(401).json({
+            message:"user not loggedin",
+            success:false
+        })
+    }
+    const decoded=jwt.verify(token,config.JWT_SECRET)
+    const user=await userModel.findById(decoded.id)
+    if(!user){
+        res.status(401).json({
+            message:"user not found",
+            status:false
+        })
+    }
+    res.status(200).json({
+        message:"user loggedin",
+        success:true,
+        data:user
+    })
+}
 export async function setdp(req,res){
       try {
         const authHeader = req.headers.authorization
