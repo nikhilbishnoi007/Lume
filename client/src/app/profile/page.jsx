@@ -1,6 +1,6 @@
 "use client"
-import { useState, useEffect } from "react"
-import { notFound, useRouter } from "next/navigation"
+import { useState, useRef } from "react"
+import { useRouter } from "next/navigation"
 import { useAuth } from "../context/authcontext.jsx"
 import Image from "next/image"
 import { IoIosLogOut } from "react-icons/io";
@@ -12,8 +12,52 @@ const Page = () => {
     const router = useRouter()
     const { showToast ,showConfirm} = useUI();
     const [open, setopen] = useState(false)
+    const [showMenu, setShowMenu] = useState(false)
+    const [showForm, setShowForm] = useState(false)
+    const [preview, setPreview] = useState(null)
+    const fileInputRef = useRef(null)
+     const handleImageChange = (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            setPreview(URL.createObjectURL(file))
+        }
+    }
+    const handleChooseClick = () => {
+        setShowMenu(false)
+        setShowForm(true)
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const file = fileInputRef.current.files[0]
+            if (!file) {
+                showToast("please select an image")
+                return
+            }
+            const formData = new FormData()
+            formData.append("dp", file)
 
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/setdp`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${accesstoken}`
+                },
+                body: formData
+            })
+            const data = await res.json()
+            if (data.success) {
+                setusers(data.data)
+                showToast("dp updated successfully")
+                setShowForm(false)
+            } else {
+                showToast(data.message)
+            }
+        } catch (error) {
+            showToast(error.message)
+        }
+    }
 
+   
 
     const handleClick = async () => {
         const result = await showConfirm("do you want to logout")
@@ -40,9 +84,7 @@ const Page = () => {
     const handelState = () => {
         setopen(!open)
     }
-    if(users){
-        return notFound()
-    }
+ 
 
     return (
         <>
@@ -51,8 +93,35 @@ const Page = () => {
             </div>
             <div className='max-w-4xl mx-auto px-4 py-10'>
                 <div className='bg-white rounded-lg shadow-md border border-gray-200 p-6 flex items-center justify-around'>
-                    <div className="flex items-center md:gap-5">
-                        <Image src="/navicon.png" alt='profile picture' width={40} height={40} priority loading="eager" className='rounded-full object-cover w-auto h-auto' />
+                    <div className="flex items-center md:gap-5 relative">
+                        <button type="button" onClick={() => setShowMenu(!showMenu)} className="relative w-10 h-10 rounded-full overflow-hidden cursor-pointer">
+                        <Image src={users.dp || "/userdefaultimage.png"} alt='profile picture' fill loading="eager" className='rounded-full object-cover' />
+                        </button>
+                        {showMenu && (
+                            <div className="absolute top-12 left-0 z-10 bg-white border border-gray-200 rounded-md shadow-md py-1 w-40">
+                                <button type="button" onClick={handleChooseClick} className="w-full text-left px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-100" >Choose your DP</button>      
+                            </div>
+                        )}
+                        {showForm && (
+                            <div className="absolute top-12 left-0 z-20 bg-white border border-gray-200 rounded-md shadow-lg p-4 w-64">
+                                <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+                                    <div className="flex flex-col items-center gap-2">
+                                        <div className="relative w-16 h-16 rounded-full overflow-hidden border border-gray-300">
+                                            <Image src={preview || users.dp || '/userdefaultimage.png'} alt="preview" fill className="object-cover" />
+                                        </div>
+                                        <label htmlFor="image" className="text-sm text-blue-700 cursor-pointer hover:underline" > Select image </label>
+                                        <input ref={fileInputRef} id="image" type="file" accept="image/*" onChange={handleImageChange}  className="hidden"/>
+                                    </div>
+                                    <div className="flex gap-2 justify-end">
+                                        <button  type="button"  onClick={() => setShowForm(false)} className="px-3 py-1.5 text-sm text-zinc-600 hover:bg-zinc-100 rounded-md"  > Cancel</button>
+                                       
+                                           
+                                        
+                                        <button type="submit" className="bg-blue-700 text-white px-4 py-1.5 rounded-md text-sm hover:bg-blue-800 active:scale-95 transition-all duration-150"> Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        )}
                         <h1 className='text-2xl font-bold mt-4'>@{users.username}</h1>
                     </div>
                     <div>

@@ -8,6 +8,7 @@ import config from "../config/config.js";
 import { genrateOTP, getOtpHtml } from "../utils/utils.js";
 import { sendEmail } from "../services/email.service.js";
 import { userInfo } from "os";
+import uploadFile from "../services/storage.service.js";
 
 export async function register(req, res) {
     const { username, email, password } = req.body
@@ -182,6 +183,63 @@ export async function refreshToken(req, res) {
         accesstoken
     })
 }
+export async function getuserpost(req, res) {
+    try {
+        const authHeader = req.headers.authorization
+        if (!authHeader) {
+            return res.status(401).json({ message: "user not loggedin", success: false })
+        }
+        const token = authHeader.split(" ")[1]
+        const decoded = jwt.verify(token, config.JWT_SECRET)
+
+        const user = await userModel.findById(decoded.id).populate("post", "image caption")
+        if (!user) {
+            return res.status(404).json({ message: "user not found", success: false })
+        }
+
+        res.status(200).json({
+            message: "User post send",
+            success: true,
+            data: user
+        })
+    } catch (error) {
+        res.status(401).json({ message: "invalid or expired token", success: false })
+    }
+}
+
+export async function setdp(req,res){
+      try {
+        const authHeader = req.headers.authorization
+        if (!authHeader) {
+            return res.status(401).json({
+                message: "user not loggedIn",
+                success: false
+            })
+        }
+        const token = authHeader.split(" ")[1]
+        const decode = jwt.verify(token, config.JWT_SECRET)
+
+        const user = await userModel.findById(decode.id)
+        if (!user) {
+            return res.status(404).json({
+                message: "user not found",
+                success: false
+            })
+        }
+
+        const result = await uploadFile(req.file.buffer)
+        user.dp=result.result
+        await user.save()
+        res.status(200).json({
+            message: "dp set succesffuly",
+            success: true,
+            data: user
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(401).json({ message: error.message, success: false })
+    }
+}
 
 export async function logout(req, res) {
     const refreshToken = req.cookies.refreshtoken
@@ -214,6 +272,7 @@ export async function logout(req, res) {
         success: true
     })
 }
+
 export async function logoutall(req, res) {
     const refreshToken = req.cookies.refreshtoken
     if (!refreshToken) {
@@ -237,26 +296,3 @@ export async function logoutall(req, res) {
 
 }
 
-export async function getuserpost(req, res) {
-    try {
-        const authHeader = req.headers.authorization
-        if (!authHeader) {
-            return res.status(401).json({ message: "user not loggedin", success: false })
-        }
-        const token = authHeader.split(" ")[1]
-        const decoded = jwt.verify(token, config.JWT_SECRET)
-
-        const user = await userModel.findById(decoded.id).populate("post", "image caption")
-        if (!user) {
-            return res.status(404).json({ message: "user not found", success: false })
-        }
-
-        res.status(200).json({
-            message: "User post send",
-            success: true,
-            data: user
-        })
-    } catch (error) {
-        res.status(401).json({ message: "invalid or expired token", success: false })
-    }
-}

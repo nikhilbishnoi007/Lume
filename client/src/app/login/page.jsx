@@ -38,9 +38,7 @@ const handleSubmit=async(e)=>{
     
   }
 }
-if(users ||accesstoken){
-  return notFound()
-}
+
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-zinc-50 px-4">
