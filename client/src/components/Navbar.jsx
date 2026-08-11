@@ -37,11 +37,7 @@ const Navbar = () => {
 
 
                 <div className='hidden md:flex gap-4 items-center'>
-<<<<<<< HEAD
                     {isloggedin ? (
-=======
-                    {users ? (
->>>>>>> 9839a2d10126e3df0f425ca24f9400c9b85664ab
                          <Link href="/profile" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150 flex items-center gap-1'>Profile <CgProfile/></Link>
                         
                     ) : (

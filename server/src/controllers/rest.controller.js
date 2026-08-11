@@ -50,11 +50,27 @@ export async function createpost(req, res) {
     }
 }
 export async function getpost(req, res) {
-    const post = await postModel.find().populate("user", "username")
+       const posts = await postModel.aggregate([{ $sample: { size: 10 } }])
+    // const post = await postModel.find().populate("user", "username")
+        const populatedPosts = await postModel.populate(posts, {path: "user",select: "username" })
     res.status(200).json({
         message: "Post Send",
         success: true,
-        data: post
+        data: populatedPosts
     })
 }
 
+export async function deletePost(req,res) {
+    const deletpostId=req.params.id
+     if (!deletpostId ) {
+        return res.status(404).json({ 
+            message: "Post not found",
+            success: false, 
+        })
+    }
+    await postModel.findByIdAndDelete(deletpostId)
+     res.status(200).json({
+        message:"Post Delete Successfully",
+        success: true,
+    })
+}

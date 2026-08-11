@@ -7,5 +7,6 @@ const restRouter=Router()
 
 restRouter.post("/create-post",upload.single("image"),restController.createpost)
 restRouter.get("/get-post",restController.getpost)
+restRouter.delete("/delete/:id",restController.deletePost)
 
 export default restRouter

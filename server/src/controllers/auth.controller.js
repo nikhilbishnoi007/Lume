@@ -68,9 +68,7 @@ export async function otpverification(req, res) {
         success: true,
     })
 
-
 }
-
 export async function login(req, res) {
     const { email, password } = req.body
     const user = await userModel.findOne({ email })
@@ -207,7 +205,6 @@ export async function getuserpost(req, res) {
     }
 }
 
-<<<<<<< HEAD
 export async function checkauth(req,res) {
     const token=req.cookies.refreshtoken
     if(!token){
@@ -230,41 +227,7 @@ export async function checkauth(req,res) {
         data:user
     })
 }
-=======
->>>>>>> 9839a2d10126e3df0f425ca24f9400c9b85664ab
-export async function setdp(req,res){
-      try {
-        const authHeader = req.headers.authorization
-        if (!authHeader) {
-            return res.status(401).json({
-                message: "user not loggedIn",
-                success: false
-            })
-        }
-        const token = authHeader.split(" ")[1]
-        const decode = jwt.verify(token, config.JWT_SECRET)
 
-        const user = await userModel.findById(decode.id)
-        if (!user) {
-            return res.status(404).json({
-                message: "user not found",
-                success: false
-            })
-        }
-
-        const result = await uploadFile(req.file.buffer)
-        user.dp=result.result
-        await user.save()
-        res.status(200).json({
-            message: "dp set succesffuly",
-            success: true,
-            data: user
-        })
-    } catch (error) {
-        console.log(error)
-        res.status(401).json({ message: error.message, success: false })
-    }
-}
 
 export async function logout(req, res) {
     const refreshToken = req.cookies.refreshtoken
