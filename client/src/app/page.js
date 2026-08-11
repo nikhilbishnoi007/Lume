@@ -6,7 +6,11 @@ import { useAuth } from "./context/authcontext.jsx";
 import { CgProfile } from "react-icons/cg";
 
 export default function Home() {
+<<<<<<< HEAD
   const { users ,isloggedin} = useAuth();
+=======
+  const { users } = useAuth();
+>>>>>>> 9839a2d10126e3df0f425ca24f9400c9b85664ab
   const cards = [
     {
       icon: <Images />,
@@ -48,7 +52,12 @@ export default function Home() {
             </p>
           </div>
           <div className="m-5 flex flex-wrap gap-2">
+<<<<<<< HEAD
             {!isloggedin ? (
+=======
+            {users ? (
+
+>>>>>>> 9839a2d10126e3df0f425ca24f9400c9b85664ab
               <Link href="/login" className="flex items-center gap-2 whitespace-nowrap text-sm md:text-base bg-blue-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-md hover:bg-blue-800 active:bg-blue-900 active:scale-95 transition-all duration-150">
                 <span>Get Started</span> <ArrowRight size={18} />
               </Link>
@@ -83,7 +92,11 @@ export default function Home() {
         })}
       </div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 m-5 bg-white rounded-lg shadow-md border border-gray-200">
+<<<<<<< HEAD
         {isloggedin ? (
+=======
+        {users ? (
+>>>>>>> 9839a2d10126e3df0f425ca24f9400c9b85664ab
           <div className="flex flex-col gap-2 md:gap-4">
             <div ><StarPlus /> </div>
             <h1 className="text-xs md:text-xl font-bold">  Welcome Back! {users.username} Ready To Share Something New?</h1>
@@ -97,7 +110,11 @@ export default function Home() {
           </div>
         )}
         <div className='flex gap-4 items-center w-full md:w-auto'>
+<<<<<<< HEAD
           {isloggedin ? (
+=======
+          {users ? (
+>>>>>>> 9839a2d10126e3df0f425ca24f9400c9b85664ab
             <Link href="/profile" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150 flex gap-1 items-center' ><CgProfile />Profile</Link>
           ) : (
             <>

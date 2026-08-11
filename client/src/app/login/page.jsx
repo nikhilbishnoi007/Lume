@@ -39,6 +39,7 @@ const handleSubmit=async(e)=>{
     showToast(error.message)
   }
 }
+<<<<<<< HEAD
 if(isloggedin){
   return (
     <>
@@ -46,6 +47,8 @@ if(isloggedin){
   <Link href="/profile">Back To Your Profile</Link>
   </>)
 }
+=======
+>>>>>>> 9839a2d10126e3df0f425ca24f9400c9b85664ab
 
   return (
     <>

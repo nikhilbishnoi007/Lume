@@ -207,6 +207,7 @@ export async function getuserpost(req, res) {
     }
 }
 
+<<<<<<< HEAD
 export async function checkauth(req,res) {
     const token=req.cookies.refreshtoken
     if(!token){
@@ -229,6 +230,8 @@ export async function checkauth(req,res) {
         data:user
     })
 }
+=======
+>>>>>>> 9839a2d10126e3df0f425ca24f9400c9b85664ab
 export async function setdp(req,res){
       try {
         const authHeader = req.headers.authorization
