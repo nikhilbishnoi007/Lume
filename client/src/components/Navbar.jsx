@@ -13,16 +13,15 @@ const Navbar = () => {
     const { users } = useAuth()
     const path = usePathname()
     const [isOpen, setIsOpen] = useState(false)
-
     const linkClass = (href) => {
-        path === href
+      return  path === href
             ? 'pb-1 border-b-2 border-blue-600 text-blue-800 transition-all duration-300'
-            : 'pb-1 border-b-2 border-transparent'
+            : 'pb-1 border-b-2 border-transparent text-black'
     }
 
 
     return (
-        <div className='border-b-2 border-zinc-300 w-full px-4 py-2'>
+        <div className='border-b-2 border-zinc-300 w-full px-4 py-2 bg-white '>
             <div className='flex justify-between items-center'>
                 <div className='flex items-center'>
                     <Image src="/navicon.png" alt='icon' width={40} height={40} priority className='w-auto h-auto'></Image>
@@ -39,7 +38,7 @@ const Navbar = () => {
 
                 <div className='hidden md:flex gap-4 items-center'>
                     {users ? (
-                       <Link href="/profile" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150 flex gap-1 items-center' ><CgProfile />Profile</Link>
+                         <Link href="/profile" className='bg-white p-2 rounded-md shadow-md border border-gray-200 text-black  active:scale-95 transition-all duration-150 flex items-center gap-1'>Profile <CgProfile/></Link>
                         
                     ) : (
                         <>
