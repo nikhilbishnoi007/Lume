@@ -37,6 +37,7 @@ const Page =() => {
             const data=await res.json()
             if(data.success){
                 showToast(data.message)
+                
             }
             else{
               showToast(data.message)

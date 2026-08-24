@@ -13,5 +13,4 @@ async function uploadFile(buffer){
    })
    return data
 }
-
 export default uploadFile
