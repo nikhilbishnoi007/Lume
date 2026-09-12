@@ -3,6 +3,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import restRouter from './routes/rest.routes.js'
 import authRouter from './routes/auth.routes.js'
+import config from './config/config.js'
 
 
 const app = express()
@@ -11,7 +12,7 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    origin:process.env.FRONTEND_ROUTE,
+    origin:config.FRONTEND_ROUTE,
     credentials: true,
 }))
 
