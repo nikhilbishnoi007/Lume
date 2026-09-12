@@ -42,7 +42,7 @@ Lume lets users upload photos with captions and tags, explore a feed of posts fr
 
 ## 🚀 Live Demo
 
-Deployed and live — check it out!
+Deployed and live — [check it out](https://lume-nine-gamma.vercel.app)
 
 ## 🧠 What I Learned
 
