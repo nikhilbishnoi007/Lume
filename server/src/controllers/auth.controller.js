@@ -38,7 +38,7 @@ export async function register(req, res) {
         user: user._id,
         otpHash
     })
-    sendEmail(email, "OTP Verification", `Your Otp Code is ${otp}`, html)
+   await sendEmail(email, "OTP Verification", `Your Otp Code is ${otp}`, html)
     res.status(201).json({
         message: "User registerd Successfully",
         success: true,
